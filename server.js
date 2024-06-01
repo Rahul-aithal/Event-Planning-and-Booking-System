@@ -5,7 +5,9 @@ import UserRouter from './Routers/user.router.js';
 import LoginRouter from './Routers/login.router.js';
 import errorhandler from './middlewares/errorhandel.js';
 import 'dotenv/config';
+import bodyParser from 'body-parser';
 const app = express();
+app.use(bodyParser.json());
 const port =process.env.PORT ||8000;
 
 dbconnect();

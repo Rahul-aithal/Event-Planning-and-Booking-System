@@ -2,10 +2,11 @@ import { comparPassword } from "../middlewares/HandlePassword.js";
 import { User } from "../models/user.models.js";
 
 export const Login= async(req,res,next)=>{
+    const {email,password} = req.body
+    
     try {
-        const {email,password} = req.body
 
-        const user= await User.findOne({email:email})
+        const  user = await User.findOne({email: email})
         if(user){
            const userPassword=user.password
             if(comparPassword(password,userPassword)){
