@@ -11,14 +11,16 @@ export const UpdatePassword = async (req, res, next) => {
         error.status =404
         return next(error)
     }
+    const userPassword= user.password
+    console.log(userPassword)
     try {
-        if (comparPassword(oldpassword,password)){
+        if (comparPassword(oldpassword,userPassword)){
             
         const UpdateUser = await User.findByIdAndUpdate(user.id,
             {
                 updatedAt: new Date,
                 
-                password: hashedPassword(password)
+                password: await hashedPassword(password)
             }, {
             new: true,
             runValidators: true
@@ -30,7 +32,7 @@ export const UpdatePassword = async (req, res, next) => {
         res.status(200).json(UpdateUser)
     }
     else{
-        const error =new Error("Old and new password are not matchin")
+        const error =new Error("Real and given old password are not matching")
         error.status =401
         return next(error)
     }

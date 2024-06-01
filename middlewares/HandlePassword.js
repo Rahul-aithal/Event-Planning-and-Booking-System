@@ -13,10 +13,11 @@ export const hashedPassword = async (password) => {
 }
 
 
-export const comparPassword = (password,oldpassword) => {
+export const comparPassword = (newPassword,userPassword) => {
     try {
-        const result = bcrypt.compareSync(password, oldpassword);
-        return result;
+        const result =  bcrypt.compareSync(newPassword,userPassword);
+        
+        return  result;
     } catch (error) {
         throw new Error("Error Comparing password: " + error.message);
     }
