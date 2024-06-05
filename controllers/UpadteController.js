@@ -1,45 +1,42 @@
-import { comparPassword, hashedPassword } from "../middlewares/HandlePassword.js";
+import { comparPassword } from "../utils/HandlePassword.js";
 import { User } from "../models/user.models.js";
 
 //@desc Update Password
 //@route PUT/api/user/password/
 export const UpdatePassword = async (req, res, next) => {
-    const { email,password,oldpassword } = req.body
-    const  user = await User.findOne({email: email}) 
+    const { email, password, oldpassword } = req.body
+    const user = await User.findOne({ email: email })
     if (!user) {
-        const error =new Error("User not found")
-        error.status =404
+        const error = new Error("User not found")
+        error.status = 404
         return next(error)
     }
-    const userPassword= user.password
+    const userPassword = user.password
     console.log(userPassword)
     try {
-        if (comparPassword(oldpassword,userPassword)){
-            
-        const UpdateUser = await User.findByIdAndUpdate(user.id,
-            {
-                updatedAt: new Date,
-                
-                password: await hashedPassword(password)
-            }, {
-            new: true,
-            runValidators: true
-        })
-        
+        if (comparPassword(oldpassword, userPassword)) {
 
-        
+            const UpdateUser = await User.findByIdAndUpdate(user.id,
+                {
+                    updatedAt: new Date,
 
-        res.status(200).json(UpdateUser)
+                    password: password
+                }, {
+                new: true,
+                runValidators: true
+            })
+
+            res.status(200).json(UpdateUser)
+        }
+        else {
+            const error = new Error("Real and given old password are not matching")
+            error.status = 401
+            return next(error)
+        }
     }
-    else{
-        const error =new Error("Real and given old password are not matching")
-        error.status =401
-        return next(error)
-    }
-    } 
     catch (err) {
-        const error =new Error(err.message)
-        error.status =500
+        const error = new Error(err.message)
+        error.status = 500
         return next(error)
     }
 
@@ -50,7 +47,7 @@ export const UpdatePassword = async (req, res, next) => {
 //@route  PUT/api/user/username/:id
 export const UpdateName = async (req, res, next) => {
     const { id } = req.params
-    const { username} = req.body
+    const { username } = req.body
 
     try {
         const UpdateUser = await User.findByIdAndUpdate(id,
@@ -63,17 +60,17 @@ export const UpdateName = async (req, res, next) => {
         })
 
         if (!UpdateUser) {
-            const error =new Error("User not found")
-            error.status =404
+            const error = new Error("User not found")
+            error.status = 404
             return next(error)
         }
 
         res.json(UpdateUser)
 
-    } 
+    }
     catch (err) {
-        const error =new Error(err.message)
-        error.status =500
+        const error = new Error(err.message)
+        error.status = 500
         return next(error)
     }
 
@@ -83,13 +80,13 @@ export const UpdateName = async (req, res, next) => {
 //@route  PUT/api/user/email/:id
 export const UpdateEmail = async (req, res, next) => {
     const { id } = req.params
-    const {  email } = req.body
+    const { email } = req.body
 
     try {
         const UpdateUser = await User.findByIdAndUpdate(id,
             {
                 updatedAt: new Date,
-                
+
                 email: email
             }, {
             new: true,
@@ -97,17 +94,17 @@ export const UpdateEmail = async (req, res, next) => {
         })
 
         if (!UpdateUser) {
-            const error =new Error("User not found")
-            error.status =404
+            const error = new Error("User not found")
+            error.status = 404
             return next(error)
         }
 
         res.json(UpdateUser)
 
-    } 
+    }
     catch (err) {
-        const error =new Error(err.message)
-        error.status =500
+        const error = new Error(err.message)
+        error.status = 500
         return next(error)
     }
 
