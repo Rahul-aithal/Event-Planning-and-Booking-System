@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { GetUsers, Getuser } from "../controllers/GetUsersControllers.js";
-import { SignUp } from "../controllers/SignUpController.js";
+import { register } from "../controllers/RegisterController.js";
 import { DelteUser } from "../controllers/DeleteController.js";
 import { UpdateEmail, UpdateName, UpdatePassword } from "../controllers/UpadteController.js";
 
@@ -11,13 +11,13 @@ const router = Router()
 router.get('/all', GetUsers)
 router.get('/:id', Getuser)
 
-router.post("/", SignUp)
+router.post("/register", register)
 
 
-router.put("/username/:id", UpdateName);
-router.put("/email/:id", UpdateEmail);
-router.put("/password/", UpdatePassword);
+router.put("/username", UpdateName);
+router.put("/email", UpdateEmail);
+router.put("/password", UpdatePassword);
 
-router.delete("/deleteuser/:id", DelteUser);
+router.delete("/deleteuser", DelteUser);
 
 export default router;

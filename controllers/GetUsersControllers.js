@@ -6,7 +6,7 @@ import { User } from "../models/user.models.js";
 //@route  GET/api/user
 export const GetUsers = async (req, res, next) => {
     try {
-        const user = await User.find()
+        const user = await User.find().select("-password -refreshToken")
         res.json(user);
     }
     catch (err) {
@@ -22,7 +22,7 @@ export const GetUsers = async (req, res, next) => {
 export const Getuser = async (req, res, next) => {
     const { id } = req.params
     try {
-        const user = await User.findById(id)
+        const user = await User.findById(id).select("-password -refreshToken")
         if (!user) {
             const error = new Error("User Not found")
             error.status = 404;

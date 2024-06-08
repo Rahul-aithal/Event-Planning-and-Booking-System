@@ -1,6 +1,12 @@
 import mongoose from "mongoose";
 import { hashedPassword } from "../utils/HandlePassword.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config({
+    path: "./.env"
+
+});
 
 const userSchema = new mongoose.Schema(
     {
@@ -22,7 +28,7 @@ const userSchema = new mongoose.Schema(
             minlength: [6, "Password must be at least 6 characters long"], // Example: Minimum password length
             maxlength: [60, "Password is too long"] // Example: Maximum password length for bcrypt hashes
         },
-        refresToken: {
+        refreshToken: {
             type: String
         }
     },
@@ -35,25 +41,37 @@ userSchema.pre("save", async function (next) {
     next();
 });
 
-userSchema.methods.generateAccessToken = function () {
-    return jwt.sign({
-        id: this.id,
-        username: this.username,
-        email: this.email
-    }, process.env.ACCESS_TOKEN_SECRET,
-        {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-        }
-    )
+userSchema.methods.generateAccessToken =  function () {
+    try {
+        const token =  jwt.sign({
+            id: this.id,
+        }, process.env.ACCESS_TOKEN_SECRET,
+            {
+                expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+            }
+        )
+        return token
+    }
+    catch (error) {
+        console.log(error);
+        throw new Error(error, "in generateAccessToken")
+    }
 }
-userSchema.methods.refreshAccessToken = function () {
-    return jwt.sign({
-        id: this.id,
-    }, process.env.REFRESH_TOKEN_SECRET,
-        {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
-        }
-    )
+userSchema.methods.generaterefreshToken =  function () {
+    try {
+        const token =  jwt.sign({
+            id: this.id,
+        }, process.env.REFRESH_TOKEN_SECRET,
+            {
+                expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+            }
+        )
+        return token
+    }
+    catch (error) {
+        console.log(error);
+        throw new Error(error, "in refreshAccessToken")
+    }
 }
 
 export const User = mongoose.model("User", userSchema)
