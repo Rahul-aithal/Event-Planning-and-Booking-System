@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const dbconnect = async () => {
     try {
-        const uri = await "mongodb://localhost:27017/Database"
+        const uri =  "mongodb://localhost:27017/Database"
 
         mongoose.connect(uri);
         console.log("DataBase successfully connected ");
