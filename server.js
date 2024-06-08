@@ -1,10 +1,11 @@
 
 import express from 'express';
 import dbconnect from './config/db.config.js';
-import errorhandler from './middlewares/errorhandel.js';
+import errorRespose from './middlewares/errorRespose.middleware.js';
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from 'cookie-parser';
+import { handleResponse } from './utils/HnadleResponse.js';
 
 const app = express();
 
@@ -34,15 +35,14 @@ import UserRouter from './Routers/user.router.js';
 import LoginRouter from './Routers/log.router.js';
 
 
+
 // routes
 app.use("/api/v1/users/", UserRouter);
 app.use("/api/v1/auth/", LoginRouter);
 app.use(( req, res, next) => {
-    const error = new Error("Page not found");
-    error.status = 404;
-    next(error);
+    return handleResponse(res,500,null,new Error("Page Not Found"),next);
 });
 
-app.use(errorhandler);
+app.use(errorRespose);
 
 app.listen(port, () => console.log(`The port is listening at ${port} `));
