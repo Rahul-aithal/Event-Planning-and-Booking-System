@@ -6,10 +6,10 @@ import { User } from "../models/user.models.js"
 //@desc Delete User
 //@route  DELETE/api/user/:id
 export const DelteUser = async (req, res, next) => {
-    const { id } = req.params
+    const { _id } = req.params
 
     try {
-        const DelteUser = await User.findByIdAndDelete(id)
+        const DelteUser = await User.findByIdAndDelete(_id)
 
 
         if (!DelteUser) {

@@ -1,16 +1,27 @@
 import jwt from "jsonwebtoken";
-import {User} from "../models/user.models.js"
+import { User } from "../models/user.models.js";
+
+
 export const verifyToken = async (req, res, next) => {
-    try {
-        const token = req.cookies.accesstoken;
-        if (!token) {
+        const token = req.cookies.accessToken;
+        //console.log(req.cookies);
+
+    
+        if (token === undefined) {
             const error = new Error("Unotherized Request")
             error.status = 404
             return (next)
         }
-        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
-        const user = await User.findByID(decodedToken?.id).select("-password -refreshToken")
+        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        //console.log(decodedToken);
+
+
+        const user = await User.findById(decodedToken.id).select("-password -refreshToken")
+        //console.log(user);
+
+
+
 
         if (!user) {
             const error = new Error("Invalid Access token");
@@ -18,11 +29,13 @@ export const verifyToken = async (req, res, next) => {
             return (next)
         }
         req.user = user;
-        next()
-    } catch (error) {
-        const err = new Error(error.message || "Error in verifying Token");
-        err.status = 500;
-        return (next);
-    }
+        try {
+            //console.log("Passed");
+            next();
+        }
+        catch (err) {
+            //console.log(err);
+        }
+ 
 
 }

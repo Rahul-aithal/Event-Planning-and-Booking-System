@@ -1,11 +1,13 @@
+import { handleResponse } from "../utils/HnadleResponse.js";
+
 const errorhandler = function (err, req, res, next) {
     if (err.status) {
-        res.status(err.status).json(err.message);
+        console.log(err);
+        res.status(err.status).json({success: false, message:err.message||"Somethig Went Wrong",data: err.data ||""});
     }
     else {
         console.log(err);
-        res.status(500).json({ "message": "Error not given " });
-        
+        handleResponse(res,500,_,new Error(err.message),next);
     }
     return next();
 }

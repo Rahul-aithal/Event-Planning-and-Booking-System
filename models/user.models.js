@@ -57,6 +57,7 @@ userSchema.methods.generateAccessToken =  function () {
         throw new Error(error, "in generateAccessToken")
     }
 }
+
 userSchema.methods.generaterefreshToken =  function () {
     try {
         const token =  jwt.sign({

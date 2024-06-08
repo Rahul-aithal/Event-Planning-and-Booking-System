@@ -31,13 +31,13 @@ app.use(cookieParser());
 
 //routes imports
 import UserRouter from './Routers/user.router.js';
-import LoginRouter from './Routers/login.router.js';
+import LoginRouter from './Routers/log.router.js';
 
 
 // routes
 app.use("/api/v1/users/", UserRouter);
 app.use("/api/v1/auth/", LoginRouter);
-app.use((req, res, next) => {
+app.use(( req, res, next) => {
     const error = new Error("Page not found");
     error.status = 404;
     next(error);

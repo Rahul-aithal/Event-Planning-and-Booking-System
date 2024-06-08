@@ -1,4 +1,4 @@
-import { comparPassword } from "../utils/HandlePassword.js";
+import { comparePassword } from "../utils/HandlePassword.js";
 import { User } from "../models/user.models.js";
 
 //@desc Update Password
@@ -14,9 +14,9 @@ export const UpdatePassword = async (req, res, next) => {
     const userPassword = user.password
     console.log(userPassword)
     try {
-        if (comparPassword(oldpassword, userPassword)) {
+        if (comparePassword(oldpassword, userPassword)) {
 
-            const UpdateUser = await User.findByIdAndUpdate(user.id,
+            const UpdateUser = await User.findByIdAndUpdate(user.email,
                 {
                     updatedAt: new Date,
 
@@ -44,13 +44,12 @@ export const UpdatePassword = async (req, res, next) => {
 
 
 //@desc Update Username
-//@route  PUT/api/user/username/:id
+//@route  PUT/api/user/username
 export const UpdateName = async (req, res, next) => {
-    const { id } = req.params
     const { username } = req.body
 
     try {
-        const UpdateUser = await User.findByIdAndUpdate(id,
+        const UpdateUser = await User.findByIdAndUpdate(username,
             {
                 updatedAt: new Date,
                 username: username,
@@ -79,11 +78,11 @@ export const UpdateName = async (req, res, next) => {
 //@desc Update Email
 //@route  PUT/api/user/email/:id
 export const UpdateEmail = async (req, res, next) => {
-    const { id } = req.params
+    
     const { email } = req.body
 
     try {
-        const UpdateUser = await User.findByIdAndUpdate(id,
+        const UpdateUser = await User.findByIdAndUpdate(email,
             {
                 updatedAt: new Date,
 
