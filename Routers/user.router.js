@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { GetUsers, Getuser } from "../controllers/GetUsersControllers.js";
-import { register } from "../controllers/RegisterController.js";
-import { DelteUser } from "../controllers/DeleteController.js";
-import { UpdateEmail, UpdateName, UpdatePassword } from "../controllers/UpadteController.js";
+import { GetUsers, Getuser } from "../controllers/userControllers/GetUsersControllers.js";
+import { register } from "../controllers/userControllers/RegisterController.js";
+import { DelteUser } from "../controllers/userControllers/DeleteController.js";
+import { UpdateEmail, UpdateName, UpdatePassword } from "../controllers/userControllers/UpadteController.js";
 
 
 const router = Router()
 
 
-router.get('/all', GetUsers)
-router.get('/:id', Getuser)
+router.post('/all', GetUsers)
+router.get('/', Getuser)
 
 router.post("/register", register)
 
