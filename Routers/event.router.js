@@ -8,7 +8,7 @@ const router = Router()
 router.use(verifyToken);
 
 //Get all exisiting events
-router.get("/all-eventes",getallEvents);
+router.get("/all-events",getallEvents);
 
 //Create new Event
 router.post("/add-event",createEvent);
