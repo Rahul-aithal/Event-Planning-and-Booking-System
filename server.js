@@ -32,13 +32,13 @@ app.use(cookieParser());
 
 //routes imports
 import UserRouter from './Routers/user.router.js';
-import LoginRouter from './Routers/log.router.js';
+import EevntRouter from './Routers/event.router.js';
 
 
 
 // routes
 app.use("/api/v1/users/", UserRouter);
-app.use("/api/v1/auth/", LoginRouter);
+app.use("/api/v1/events/",EevntRouter );
 app.use(( req, res, next) => {
     return handleResponse(res,500,null,new Error("Page Not Found"),next);
 });
