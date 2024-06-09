@@ -8,11 +8,11 @@ import { LogOut, Login, refreshAccessToken } from "../controllers/userController
 
 const router = Router()
 
-router.use(verifyToken);
+// router.use(verifyToken);
 
 //Get Users
 router.post('/all', GetUsers);
-router.get('/', Getuser);
+router.get('/user',verifyToken, Getuser);
 
 //Regiseter new User
 router.post("/register", register)
@@ -25,11 +25,11 @@ router.post("/logout/", verifyToken, LogOut);
 router.post("/refreshaccesstoken",refreshAccessToken);
 
 //Upadate user details
-router.put("/username",UpdateName);
-router.put("/email", UpdateEmail);
-router.put("/password",UpdatePassword);
+router.put("/username",verifyToken,UpdateName);
+router.put("/email", verifyToken,UpdateEmail);
+router.put("/password",verifyToken,UpdatePassword);
 
-//Delete User
-router.delete("/deleteuser", DelteUser);
+//Delete U
+router.delete("/deleteuser", verifyToken,DelteUser);
 
 export default router;
