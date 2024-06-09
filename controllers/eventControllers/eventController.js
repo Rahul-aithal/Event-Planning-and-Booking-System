@@ -1,14 +1,14 @@
-import { Event } from "../../models/event.model";
-import { handleResponse } from "../../utils/HnadleResponse";
+import { Event } from "../../models/event.model.js";
+import { handleResponse } from "../../utils/HnadleResponse.js";
 
 export const createEvent = async (req, res, next) => {
     const user = req.user;
-    if (!user) return handleResponse(res, 401, _, new Error("No User Found"), next);
+    if (!user) return handleResponse(res, 401,null, new Error("No User Found"), next);
 
     const { title, description, date, location, availableSeats } = req.body;
 
     if (!(title && description && date && location && availableSeats))
-        return handleResponse(res, 400, _, new Error("All fields are Complsory"), next);
+        return handleResponse(res, 400,null, new Error("All fields are Complsory"), next);
 
     try {
         const isExisistingEvent = await Event.findOne({
@@ -31,9 +31,9 @@ export const createEvent = async (req, res, next) => {
             location,
             availableSeats
         });
-        return handleResponse(res, 201, event, _, next);
+        return handleResponse(res, 201, event,null, next);
     } catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500,null, error, next);
     }
 }
 
@@ -41,7 +41,7 @@ export const createEvent = async (req, res, next) => {
 export const deleteEvent = async (req, res, next) => {
     try {
         const user = req.user;
-        if (!user) return handleResponse(res, 401, _, new Error("No User Found"), next);
+        if (!user) return handleResponse(res, 401,null, new Error("No User Found"), next);
         const { title, date, location } = req.body;
         const isExisistingEvent = await Event.find({
             "owner.id": user.id,
@@ -49,11 +49,14 @@ export const deleteEvent = async (req, res, next) => {
             date,
             location
         });
-        if (!isExisistingEvent)
-            return handleResponse(res, 401, _, new Error("No Event Found"), next);
-        await Event.findOneAndDelete({ title });
+        
+        if (isExisistingEvent.length===0)
+            return handleResponse(res, 401,null, new Error("No Event Found"), next);
+       
+        const event = await Event.findOneAndDelete({ title });
+        return handleResponse(res,200,event,null,next);
     } catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500,null, error, next);
     }
 }
 
@@ -62,35 +65,35 @@ export const updateDetails = async (req, res, next) => {
 
     const user = req.user;
 
-    if (!user) return handleResponse(res, 401, _, new Error("No User Found"), next);
+    if (!user) return handleResponse(res, 401,null, new Error("No User Found"), next);
 
     const details = req.body;
 
-    if (!details) return handleResponse(res, 406, _, new Error("Detials are required"), next);
+    if (!details) return handleResponse(res, 406,null, new Error("Detials are required"), next);
 
-    if (!details.title) return handleResponse(res, 406, _, new Error("Title is requrired"), next);
+    if (!details.currentTitle) return handleResponse(res, 406,null, new Error("Title is requrired"), next);
 
     try {
         const event = await Event.findOne({
-            title: details.title,
-            date: details.date,
-            location: details.location
+            title: details.currentTitle,
+            date: details.currentDate,
+            location: details.currentLocation
         });
-        if (!event) return handleResponse(res, 404, _, new Error("Event Not Found"), next);
+        if (!event) return handleResponse(res, 404,null, new Error("Event Not Found"), next);
 
-        if (user.id !== event.owner.id) return handleResponse(res, 401, _, new Error("Title is Invalid"), next);
+        if (user.id !== event.owner.id) return handleResponse(res, 401,null, new Error("Title is Invalid"), next);
 
         const allowedFields = ['title', 'description', 'date', 'location', 'availableSeats'];
 
         for (const key in details) {
-            if (details.hasOwnProperty(key)&&allowedFields.includes(key)) {
+            if (allowedFields.includes(key)) {
                 event[key] = details[key];
             }
         }
         await event.save();
-        return handleResponse(res, 200, event, _, next);
+        return handleResponse(res, 200, event,null, next);
     } catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500,null, error, next);
     }
 }
 
@@ -98,8 +101,8 @@ export const updateDetails = async (req, res, next) => {
 export const getallEvents = async (req, res, next) => {
     try {
         const events = await Event.find();
-        return handleResponse(res, 200, events, _, next);
+        return handleResponse(res, 200, events,null, next);
     } catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500,null, error, next);
     }
 }
