@@ -1,5 +1,5 @@
 import  {User} from "../../models/user.model.js";
-
+import { handleResponse } from "../../utils/HnadleResponse.js";
 
 
 //@desc GET all Users
@@ -7,10 +7,10 @@ import  {User} from "../../models/user.model.js";
 export const GetUsers = async (req, res, next) => {
     try {
         const user = await User.find().select("-password -refreshToken")
-        return handleResponse(res,200,user,_,next);
+        return handleResponse(res,200,user,null,next);
     }
     catch (error) {
-        return handleResponse(res,500,_,error,next);
+        return handleResponse(res,500,{},error,next);
     }
 }
 
@@ -20,12 +20,10 @@ export const GetUsers = async (req, res, next) => {
 export const Getuser = async (req, res, next) => {
     
     try {
-const user =  req.user;
-
-    return handleResponse(res,200,req.user,_,next);
+    return handleResponse(res,200,req.user,null,next);
 }
     catch (error) {
-        return handleResponse(res,500,_,error,next);
+        return handleResponse(res,500,{},error,next);
     }
 }
 
