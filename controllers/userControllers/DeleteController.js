@@ -1,17 +1,15 @@
 
 
-import { User } from "../../models/user.models.js";
+import { User } from "../../models/user.model.js";
 
 
 //@desc Delete User
-//@route  DELETE/api/user/:id
+//@route  DELETE/api/user/
 export const DelteUser = async (req, res, next) => {
-    const { _id } = req.params
-
 
     try {
-        const { email, password } = req.body
-        const user = await User.findOne({ email });
+        const { password } = req.body
+        const user = req.user
         if (!user) {
             return handleResponse(res, 404, _, new Error("User not found"), next);
 
@@ -21,12 +19,7 @@ export const DelteUser = async (req, res, next) => {
 
         if (comparePassword(password, userPassword)) {
 
-            const DelteUser = await User.findByIdAndDelete(_id);
-
-            if (!DelteUser) {
-                return handleResponse(res, 404, _, new Error("User Not found"), next);
-            }
-
+            const DelteUser = await User.findByIdAndDelete(user.id);
             return handleResponse(res, 200, DelteUser, _, next);
         }
          else 
