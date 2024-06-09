@@ -1,16 +1,17 @@
 import { comparePassword } from "../../utils/HandlePassword.js";
-import { User } from "../../models/user.models.js";
+import { User } from "../../models/user.model.js";
 import { handleResponse } from "../../utils/HnadleResponse.js";
 
 //@desc Update Password
 //@route PUT/api/user/password/
 export const UpdatePassword = async (req, res, next) => {
-    const { email, password, oldpassword } = req.body;
-    const user = await User.findOne({ email });
+    const {  password, oldpassword } = req.body;
+    const user =req.user;
     if (!user) {
         return handleResponse(res, 404, _, new Error("User not found"), next);
 
     }
+
     const userPassword = user.password;
     console.log(userPassword)
     try {
@@ -46,12 +47,13 @@ export const UpdateName = async (req, res, next) => {
 
     try {
 
-        const { username, email, password } = req.body
-        const user = await User.findOne({ email });
+        const { username, password } = req.body
+        const user =req.user
         if (!user) {
             return handleResponse(res, 404, _, new Error("User not found"), next);
 
         }
+        if(username!==user.username) return handleResponse(res, 404, _, new Error("Invalid username"), next);
         const userPassword = user.password;
         console.log(userPassword);
 
@@ -92,7 +94,8 @@ export const UpdateEmail = async (req, res, next) => {
 
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        const user =req.user;
+        if(email!==user.email) return handleResponse(res, 404, _, new Error("Invalid email"), next);
         if (!user) {
             return handleResponse(res, 404, _, new Error("User not found"), next);
 
