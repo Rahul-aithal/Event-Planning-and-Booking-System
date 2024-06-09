@@ -5,12 +5,12 @@ const eventSchema = mongoose.Schema( {
     owner: {
         type: Object,
         require:true,
-        unique:ture
+       
     },
     title: {
         type: String,    //One who Books for event
         require:true,
-        unique:ture
+      
     },
     description:{
         type:String,
