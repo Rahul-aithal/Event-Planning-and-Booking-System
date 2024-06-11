@@ -29,7 +29,8 @@ export const createEvent = async (req, res, next) => {
             description,
             date,
             location,
-            availableSeats
+            availableSeats,
+            bookedSeats:0
         });
         return handleResponse(res, 201, event,null, next);
     } catch (error) {
@@ -101,7 +102,7 @@ export const updateDetails = async (req, res, next) => {
 export const getallEvents = async (req, res, next) => {
     try {
         const events = await Event.find();
-        return handleResponse(res, 200, events,null, next);
+        return handleResponse(res, 200, events.length>0?events:"No events",null, next);
     } catch (error) {
         return handleResponse(res, 500,null, error, next);
     }
