@@ -33,12 +33,16 @@ app.use(cookieParser());
 //routes imports
 import UserRouter from './Routers/user.router.js';
 import EevntRouter from './Routers/event.router.js';
+import BookingRouter from './Routers/booking.router.js';
 
 
 
 // routes
 app.use("/api/v1/users/", UserRouter);
-app.use("/api/v1/events/",EevntRouter );
+app.use("/api/v1/events/",EevntRouter);
+app.use("/api/v1/booking/",BookingRouter);
+
+
 app.use(( req, res, next) => {
     return handleResponse(res,500,null,new Error("Page Not Found"),next);
 });
