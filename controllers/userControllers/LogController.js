@@ -59,7 +59,7 @@ export const Login = async (req, res, next) => {
 
 export const LogOut = async (req, res, next) => {
 
-    const userId = req.user.id
+    const userId = req.user._id
     // Find the user document by ID
     const user = await User.findById(userId);
 
@@ -96,7 +96,7 @@ export const refreshAccessToken = async (req, res, next) => {
         const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
         console.log(decodedToken);
 
-        const user = await User.findById(decodedToken?.id);
+        const user = await User.findById(decodedToken?._id);
 
         if (!user) {
             return handleResponse(res,405,_,new Error("Invalid Referesh Token"),next);
@@ -111,7 +111,7 @@ export const refreshAccessToken = async (req, res, next) => {
             httpOnly: true,
             secure: true
         };
-        const { accessToken, newRefreshToken } = await generateAccessTokenAndRefreshToken(user.id);
+        const { accessToken, newRefreshToken } = await generateAccessTokenAndRefreshToken(user._id);
         res.status(200).
             cookie("acessToken", accessToken,options).
             cookie("refreshToken", newRefreshToken,options).

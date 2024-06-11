@@ -19,7 +19,7 @@ export const DelteUser = async (req, res, next) => {
 
         if (comparePassword(password, userPassword)) {
 
-            const DelteUser = await User.findByIdAndDelete(user.id);
+            const DelteUser = await User.findByIdAndDelete(user._id);
             return handleResponse(res, 200, DelteUser, _, next);
         }
          else 

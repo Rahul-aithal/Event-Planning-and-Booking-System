@@ -35,6 +35,6 @@ const eventSchema = mongoose.Schema( {
 }, { timestamps: true });
 
 
-eventSchema.index({"owner.id":1,title:1,date:1,location:1},{unique:true});
+eventSchema.index({"owner._id":1,title:1,date:1,location:1},{unique:true});
 
 export const Event = mongoose.model("Event", eventSchema);

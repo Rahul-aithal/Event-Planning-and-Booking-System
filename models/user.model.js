@@ -44,7 +44,7 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.generateAccessToken =  function () {
     try {
         const token =  jwt.sign({
-            id: this.id,
+            id: this._id,
         }, process.env.ACCESS_TOKEN_SECRET,
             {
                 expiresIn: process.env.ACCESS_TOKEN_EXPIRY
@@ -61,7 +61,7 @@ userSchema.methods.generateAccessToken =  function () {
 userSchema.methods.generaterefreshToken =  function () {
     try {
         const token =  jwt.sign({
-            id: this.id,
+            id: this._id,
         }, process.env.REFRESH_TOKEN_SECRET,
             {
                 expiresIn: process.env.REFRESH_TOKEN_EXPIRY

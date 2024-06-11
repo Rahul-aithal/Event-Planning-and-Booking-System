@@ -17,7 +17,7 @@ export const verifyToken = async (req, res, next) => {
         //console.log(decodedToken);
 
 
-        const user = await User.findById(decodedToken.id).select("-password -refreshToken")
+        const user = await User.findById(decodedToken._id).select("-password -refreshToken")
         //console.log(user);
 
 

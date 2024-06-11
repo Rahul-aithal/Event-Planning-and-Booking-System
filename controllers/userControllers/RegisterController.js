@@ -26,7 +26,7 @@ export const register = async (req, res, next) => {
             password
         });
 
-       return handleResponse(res, 200, await User.findById(user.id),null, next);
+       return handleResponse(res, 200, await User.findById(user._id),null, next);
 
     } catch (error) {
         return handleResponse(res, 500, error.data, error, next);

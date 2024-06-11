@@ -12,7 +12,7 @@ export const createEvent = async (req, res, next) => {
 
     try {
         const isExisistingEvent = await Event.findOne({
-            "owner.id": user.id,
+            "owner._id": user._id,
             title,
             date,
             location
@@ -21,7 +21,7 @@ export const createEvent = async (req, res, next) => {
             return handleResponse(res, 401, isExisistingEvent, new Error("Event already present give anthore title"), next);
         const event = await Event.create({
             owner: {
-                id: user.id,
+                id: user._id,
                 email: user.email,
                 username: user.username
             },
@@ -45,7 +45,7 @@ export const deleteEvent = async (req, res, next) => {
         if (!user) return handleResponse(res, 401,null, new Error("No User Found"), next);
         const { title, date, location } = req.body;
         const isExisistingEvent = await Event.find({
-            "owner.id": user.id,
+            "owner._id": user._id,
             title,
             date,
             location
@@ -82,7 +82,7 @@ export const updateDetails = async (req, res, next) => {
         });
         if (!event) return handleResponse(res, 404,null, new Error("Event Not Found"), next);
 
-        if (user.id !== event.owner.id) return handleResponse(res, 401,null, new Error("Title is Invalid"), next);
+        if (user._id !== event.owner._id) return handleResponse(res, 401,null, new Error("Title is Invalid"), next);
 
         const allowedFields = ['title', 'description', 'date', 'location', 'availableSeats'];
 
