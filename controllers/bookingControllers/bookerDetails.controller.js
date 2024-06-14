@@ -27,13 +27,10 @@ export const bookerDetails = async (req, res, next) => {
                         $size: "$bookedEvents"
                     },
                     isBooked: {
-                        $cond: {
-                            if: { $in: [req.user._id, "$bookedEvents.booker"] },
-                            then: true,
-                            else: false
-                        }
+                        $gt: [{ $size: "$bookedEvents" }, 0] // Check if there are any booked events
                     }
-                }
+                    }
+                
             },
             {
                 $project: {
@@ -43,18 +40,19 @@ export const bookerDetails = async (req, res, next) => {
                     TotalBookedEvent: 1,
                     isBooked: 1
                 }
-            }
-        ]);
+            }]);
 
         ; // Convert cursor to array for easier handling
-        console.log("Bookings:", bookings);
+        // console.log("Bookings:", bookings);
+    
+        
 
         if (bookings.length === 0) {
             console.log("No bookings found for user.");
             return handleResponse(res, 404, null, new Error("No bookings found for user."), next);
         }
 
-        return handleResponse(res, 200, await bookings[0], null, next);
+        return handleResponse(res, 200,  bookings, null, next);
     } catch (error) {
         console.error("Error:", error);
         return handleResponse(res, 500, null, error, next);
