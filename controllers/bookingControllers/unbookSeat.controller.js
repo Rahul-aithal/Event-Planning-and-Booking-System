@@ -5,7 +5,7 @@ import { handleResponse } from "../../utils/HnadleResponse.js";
 
 export const unbookSeat = async (req, res, next) => {
     const user = req.user;
-    // console.log(user);
+
     const { owner, title, location, date, unbookingseats } = req.body;
     
     try {
