@@ -11,11 +11,12 @@ export const bookSeat = async (req, res, next) => {
     if (!(user && eventDetails)) return handleResponse(res, 404, {}, new Error("Data missing"), next);
     try {
         const event = await Event.findOne({
-            owner,
+            "owner.username":owner,
             title,
             date,
-            location
+            location,
         });
+        console.log( { owner,title, date, location,bookedSeats ,event} );
         if (!event) return handleResponse(res, 404, {}, new Error("No evnent present"), next);
 
         const booking = new Booking();
