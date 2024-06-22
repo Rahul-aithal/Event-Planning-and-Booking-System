@@ -42,7 +42,8 @@ export const Login = async (req, res, next) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
+            path:"/"
         };
 
         res.status(200).

@@ -5,19 +5,19 @@ import { updateDetails, createEvent, deleteEvent, getallEvents } from "../contro
 
 const router = Router()
 
-router.use(verifyToken);
+
 
 //Get all exisiting events
 router.get("/all-events",getallEvents);
 
 //Create new Event
-router.post("/add-event",createEvent);
+router.post("/add-event",verifyToken,createEvent);
 
 //Delete Eevent
-router.delete("/delete-event",deleteEvent);
+router.delete("/delete-event",verifyToken,deleteEvent);
 
 //Upadte event Detials
-router.put("/upadte-deatils",updateDetails);
+router.put("/upadte-deatils",verifyToken,updateDetails);
 
 
 export default router;
