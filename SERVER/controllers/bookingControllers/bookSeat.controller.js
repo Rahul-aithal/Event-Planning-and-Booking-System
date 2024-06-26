@@ -1,4 +1,4 @@
-import { handleResponse } from "../../utils/HnadleResponse.js";
+import { handleResponse } from "../../utils/HandleResponse.js";
 import { Event } from "../../models/event.model.js"
 import { Booking } from "../../models/booking.model.js";
 

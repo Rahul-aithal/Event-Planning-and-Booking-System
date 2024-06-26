@@ -1,5 +1,5 @@
 import { User } from "../../models/user.model.js";
-import { handleResponse } from "../../utils/HnadleResponse.js";
+import { handleResponse } from "../../utils/HandleResponse.js";
 
 
 export const bookerDetails = async (req, res, next) => {

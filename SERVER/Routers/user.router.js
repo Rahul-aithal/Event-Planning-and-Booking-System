@@ -11,7 +11,7 @@ const router = Router()
 // router.use(verifyToken);
 
 //Get Users
-router.post('/all', GetUsers);
+router.get('/all', GetUsers);
 router.get('/user',verifyToken, Getuser);
 
 //Regiseter new User

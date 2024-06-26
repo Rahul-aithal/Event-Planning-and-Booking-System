@@ -1,6 +1,6 @@
 import { Booking } from "../../models/booking.model.js";
 import { Event } from "../../models/event.model.js";
-import { handleResponse } from "../../utils/HnadleResponse.js";
+import { handleResponse } from "../../utils/HandleResponse.js";
 
 
 export const unbookSeat = async (req, res, next) => {

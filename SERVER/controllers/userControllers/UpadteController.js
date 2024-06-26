@@ -1,6 +1,6 @@
 import { comparePassword } from "../../utils/HandlePassword.js";
 import { User } from "../../models/user.model.js";
-import { handleResponse } from "../../utils/HnadleResponse.js";
+import { handleResponse } from "../../utils/HandleResponse.js";
 
 //@desc Update Password
 //@route PUT/api/user/password/

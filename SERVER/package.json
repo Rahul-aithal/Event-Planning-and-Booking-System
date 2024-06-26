@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "noed app",
-    "dev": "node --watch server"
+    "dev": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +18,8 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }

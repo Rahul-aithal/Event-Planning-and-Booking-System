@@ -1,5 +1,5 @@
 import { Event } from "../../models/event.model.js";
-import { handleResponse } from "../../utils/HnadleResponse.js";
+import { handleResponse } from "../../utils/HandleResponse.js";
 
 export const createEvent = async (req, res, next) => {
     const user = req.user;

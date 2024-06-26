@@ -1,11 +1,12 @@
 
 import { User } from "../../models/user.model.js";
-import { handleResponse } from "../../utils/HnadleResponse.js";
+import { handleResponse } from "../../utils/HandleResponse.js";
 
 //@desc Add User
 //@route  POST/api/v1/user/register
 
 export const register = async (req, res, next) => {
+    console.log("DONE ");
     try {
         //get user details form fornt end
 
@@ -25,7 +26,7 @@ export const register = async (req, res, next) => {
             email,
             password
         });
-
+        
        return handleResponse(res, 200, await User.findById(user._id),null, next);
 
     } catch (error) {

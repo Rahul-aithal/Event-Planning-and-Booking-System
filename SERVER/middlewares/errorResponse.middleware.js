@@ -1,4 +1,4 @@
-import { handleResponse } from "../utils/HnadleResponse.js";
+import { handleResponse } from "../utils/HandleResponse.js";
 
 const errorRespose = function (err, req, res, next) {
     if (err.status) {
