@@ -30,11 +30,11 @@ export const Login = async (req, res, next) => {
 
         const user = await User.findOne({ email: email })
         if (!user) {
-            return handleResponse(res,401,_,new Error("User not found"),next);
+            return handleResponse(res,404,_,new Error("User not found"),next);
         }
         const userPassword = user.password
         if (!comparePassword(password, userPassword)) {
-            return handleResponse(res,401,_,new Error("Enter correct Password"),next);
+            return handleResponse(res,403,_,new Error("Enter correct Password"),next);
             
         }
 
