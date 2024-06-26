@@ -6,7 +6,7 @@ import { handleResponse } from "../../utils/HandleResponse.js";
 //@route  POST/api/v1/user/register
 
 export const register = async (req, res, next) => {
-    console.log("DONE ");
+
     try {
         //get user details form fornt end
 
