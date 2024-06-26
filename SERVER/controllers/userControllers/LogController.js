@@ -43,7 +43,8 @@ export const Login = async (req, res, next) => {
         const options = {
             httpOnly: true,
             secure: true,
-            path:"/"
+            path:"/",
+            sameSite: 'None',
         };
 
         res.status(200).
