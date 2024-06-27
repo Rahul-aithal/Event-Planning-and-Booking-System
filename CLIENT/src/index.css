@@ -1,0 +1,16 @@
+/* Scrollbar width */
+::-webkit-scrollbar {
+    width: 12px; /* Adjust width as needed */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: transparent; /* White background */
+}
+
+/* Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Green color for the thumb */
+    border-radius: 6px; /* Rounded corners */
+}
+
