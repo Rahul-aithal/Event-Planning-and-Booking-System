@@ -7,7 +7,7 @@ import { unbookSeat } from "../controllers/bookingControllers/unbookSeat.control
 
 const router = Router();
 
-router.get('/booker-details/:usesrname', verifyToken, bookerDetails);
+router.get('/booker-details/', verifyToken, bookerDetails);
 router.post('/book-event/', verifyToken, bookSeat);
 router.delete('/unbooking-event/', verifyToken, unbookSeat);
 
