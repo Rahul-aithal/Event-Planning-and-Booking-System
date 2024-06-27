@@ -21,7 +21,20 @@ export const bookerDetails = async (req, res, next) => {
                 }
             },
             {
-                $unwind: "$bookedEvents"
+                $addFields: {
+                    TotalBookedEvent: {
+                        $size: "$bookedEvents"
+                    },
+                    isBooked: {
+                        $gt: [{ $size: "$bookedEvents" }, 0] // Check if there are any booked events
+                    }
+                }
+            },
+            {
+                $unwind: {
+                    path: "$bookedEvents",
+                    preserveNullAndEmptyArrays: true // Include users with no bookings
+                }
             },
             {
                 $lookup: {
@@ -32,7 +45,15 @@ export const bookerDetails = async (req, res, next) => {
                 }
             },
             {
-                $unwind: "$eventDetails"
+                $unwind: {
+                    path: "$eventDetails",
+                    preserveNullAndEmptyArrays: true // Include bookings without event details
+                }
+            },
+            {
+                $match: {
+                    eventDetails: { $ne: null },
+                }
             },
             {
                 $group: {
@@ -42,20 +63,31 @@ export const bookerDetails = async (req, res, next) => {
                     bookedEvents: {
                         $push: {
                             _id: "$bookedEvents._id",
-                            eventName: "$bookedEvents.eventName",
-                            eventDetails: "$eventDetails",
-                            // Add other booking fields if needed
+                            eventDetails: {
+                                title: "$eventDetails.title",
+                                description: "$eventDetails.description",
+                                date: "$eventDetails.date",
+                                location: "$eventDetails.location",
+                                availableSeats: "$eventDetails.availableSeats",
+                                owner: "$eventDetails.owner.username"
+                            }
                         }
                     },
-                    TotalBookedEvent: { $first: { $size: "$bookedEvents" } },
-                    isBooked: { $first: { $gt: [{ $size: "$bookedEvents" }, 0] } }
+                    TotalBookedEvent: { $first: "$TotalBookedEvent" },
+                    isBooked: { $first: "$isBooked" }
                 }
             },
             {
                 $project: {
                     username: 1,
                     email: 1,
-                    bookedEvents: 1,
+                    bookedEvents: {
+                        $filter: {
+                            input: "$bookedEvents",
+                            as: "bookedEvent",
+                            cond: { $ne: ["$$bookedEvent._id", null] }
+                        }
+                    },
                     TotalBookedEvent: 1,
                     isBooked: 1
                 }
