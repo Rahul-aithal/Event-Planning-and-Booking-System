@@ -29,20 +29,29 @@ function Home() {
         fetchData();
     }, []);
 
-const handlefirstClick=()=>{
-    setBookNow(!bookNow)
-}
-
-//http://localhost:8000/api/v1/booking/book-event
-    const bookEventNow=(event)=>{
-        const data={}
-        console.log(event);
-        // axios.post("http://localhost:8000/api/v1/booking/book-event",{},{withCredentials:true})
+    const handlefirstClick = () => {
         setBookNow(!bookNow)
     }
 
+    const bookEventNow = (event) => {
+        const data = {}
+        console.log(event);
+        const values = ["title", "location", "owner", "date"]
+        for (const value in event) {
+            if (values.includes(value)) {
+
+                data[value] = event[value]
+            }
+        }
+        data.owner = data.owner.username
+        data.bookedSeats = seats
+        console.log(data);
+        axios.post("http://localhost:8000/api/v1/booking/book-event", data, { withCredentials: true }).then(() => setBookNow(!bookNow)).catch((error) => console.error(error))
+
+    }
+
     return (
-        <div className="container mt-5 overflow-y-scroll innerScrollBar" style={{height:"90vh",width:"100vw"}}>
+        <div className="container mt-5 overflow-y-scroll innerScrollBar" style={{ height: "90vh", width: "100vw" }}>
             <section id="booked-events">
                 <h2 className="fw-bold py-2 px-3 mb-4">
                     All of your upcoming booked events shown below
@@ -77,21 +86,22 @@ const handlefirstClick=()=>{
                                     <p className="card-text text-bg-warning p-2 text-danger-emphasis fw-bold">
                                         Description {event.description}
                                     </p>
-                                    <p className="card-text">Location {event.location}</p>
-                                    <p className="card-text">Date {event.date}</p>
-                                    <p className="card-text">Available Seats {event.availableSeats}</p>
-                                    
+                                    <p className="card-text "><i className="bi bi-pin-map me-2"></i>Location {event.location}</p>
+                                    <p className="card-text"><i className="me-2 bi bi-calendar-plus-fill"></i>Date {event.date}</p>
+                                    <p className="card-text">
+                                        Available Seats {event.availableSeats}</p>
+
                                     <p className="card-text">Owner {event.owner.username}</p>
 
-                                  {  bookNow ?   (<div>
-                                            <input type='text' className='form-control form-text' value={seats} placeholder='Enter the seats' onChange={(e)=>(setSeats(e.targe.value))} />
-                                            <button onClick={() => bookEventNow(event)} className="btn btn-danger mt-2">Confirm Booking</button>
-                                        </div>)
-                                     :<button onClick={handlefirstClick} className="btn btn-danger">Book Now</button>}
+                                    {bookNow ? (<div>
+                                        <input type='text' className='form-control form-text' value={seats} placeholder='Enter the seats' onChange={(e) => (setSeats(e.target.value))} />
+                                        <button onClick={() => bookEventNow(event)} className="btn btn-danger mt-2">Confirm Booking</button>
+                                    </div>)
+                                        : <button onClick={handlefirstClick} className="btn btn-danger">Book Now</button>}
 
 
-                                  
-                                  
+
+
                                 </div>
                             </div>
                         </div>
