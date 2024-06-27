@@ -49,7 +49,7 @@ function Events_List() {
                                         <div className="card">
 
                                             <div className="card-header text-center bg-success text-white fw-bold">
-                                                {event.eventDetails.eventName}
+                                                {event.eventDetails.title}
                                             </div>
                                             <div className="card-body">
                                                 <p className="card-text">{event.eventDetails.description}</p>
