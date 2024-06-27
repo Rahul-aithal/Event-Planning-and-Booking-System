@@ -101,7 +101,7 @@ export const updateDetails = async (req, res, next) => {
 
 export const getallEvents = async (req, res, next) => {
     try {
-        const events = await Event.find();
+        const events = await Event.find().select(["-createdAt","-updatedAt","-_id ,-owner._id"]);
         return handleResponse(res, 200, events.length>0?events:"No events",null, next);
     } catch (error) {
         return handleResponse(res, 500,null, error, next);
