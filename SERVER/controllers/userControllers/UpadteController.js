@@ -13,7 +13,6 @@ export const UpdatePassword = async (req, res, next) => {
     }
 
     const userPassword = user.password;
-    console.log(userPassword)
     try {
         if (comparePassword(oldpassword, userPassword)) {
 
@@ -55,7 +54,7 @@ export const UpdateName = async (req, res, next) => {
         }
         if(username!==user.username) return handleResponse(res, 404, _, new Error("Invalid username"), next);
         const userPassword = user.password;
-        console.log(userPassword);
+
 
         if (comparePassword(password, userPassword)) {
 
@@ -101,7 +100,7 @@ export const UpdateEmail = async (req, res, next) => {
 
         }
         const userPassword = user.password;
-        console.log(userPassword);
+
 
         if (comparePassword(password, userPassword)) {
 

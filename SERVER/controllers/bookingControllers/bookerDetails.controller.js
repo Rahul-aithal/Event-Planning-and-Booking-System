@@ -5,7 +5,6 @@ export const bookerDetails = async (req, res, next) => {
     try {
         const userId = req.user._id;
 
-        console.log("User ID:", userId);
         const bookings = await User.aggregate([
             {
                 $match: {
@@ -95,7 +94,7 @@ export const bookerDetails = async (req, res, next) => {
         ]);
 
         if (bookings.length === 0) {
-            console.log("No bookings found for user.");
+
             return handleResponse(res, 404, null, new Error("No bookings found for user."), next);
         }
 

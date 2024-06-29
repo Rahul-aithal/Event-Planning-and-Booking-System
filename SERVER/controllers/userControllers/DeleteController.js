@@ -15,7 +15,7 @@ export const DelteUser = async (req, res, next) => {
 
         }
         const userPassword = user.password;
-        console.log(userPassword)
+
 
         if (comparePassword(password, userPassword)) {
 

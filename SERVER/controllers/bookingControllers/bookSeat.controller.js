@@ -16,7 +16,7 @@ export const bookSeat = async (req, res, next) => {
             date,
             location,
         });
-        console.log( { owner,title, date, location,bookedSeats ,event} );
+        
         if (!event) return handleResponse(res, 404, {}, new Error("No evnent present"), next);
 
         const booking = new Booking();

@@ -3,7 +3,7 @@ import { User } from "../../models/user.model.js";
 import jwt from "jsonwebtoken";
 
 
-const generateAccessTokenAndRefreshToken = async (userID) => {
+export const generateAccessTokenAndRefreshToken = async (userID) => {
     try {
         const user = await User.findById(userID);
         const accessToken = await user.generateAccessToken();
@@ -72,7 +72,6 @@ export const LogOut = async (req, res, next) => {
     // Save the updated user document
     const updatedUser = await user.save();
 
-    console.log("Passed", updatedUser);
 
     const options = {
         httpOnly: true,
@@ -96,7 +95,6 @@ export const refreshAccessToken = async (req, res, next) => {
 
     try {
         const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
-        console.log(decodedToken);
 
         const user = await User.findById(decodedToken?._id);
 
