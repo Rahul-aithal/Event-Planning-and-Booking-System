@@ -1,14 +1,15 @@
-import React from 'react'
+import React from 'react';
+import './footer.css';
 
 function Footer() {
   return (
-    <footer className=' position-relative bottom-0 w-100 h-100'>
-      <div className='bg-black text-white p-2 text-center '>
+    <footer className='footer bg-bg-body-secondary  text-white p-3 text-center d-flex align-items-baseline '>
+      <div className="container">
         <p>Discover, Book, and Celebrate with Us! Find the perfect events for every occasion, from parties to conferences, and make every moment unforgettable.</p>
         <p>&copy; 2024 Your Event Booking Website</p>
-        </div>
+      </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
