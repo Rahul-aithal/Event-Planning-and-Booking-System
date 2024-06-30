@@ -19,7 +19,7 @@ router.post("/register", register)
 
 //Log in or out user
 router.post("/login", Login);
-router.post("/logout/", verifyToken, LogOut);
+router.post("/logout", verifyToken, LogOut);
 
 //Givn new Access Token based on refrsh Token
 router.post("/refreshaccesstoken",refreshAccessToken);
