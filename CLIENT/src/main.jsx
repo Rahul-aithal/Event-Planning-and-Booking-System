@@ -1,43 +1,52 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { store } from './store/store.js'
+import  store from './store/store.js'
 import AuthLayout from './components/AuthLayout.jsx'
-import { Route, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {  RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css';
-import Layout from './Layout/Layout.jsx'
-import Login from './pages/Login/Login.jsx'
-import Register from './pages/Register/Register.jsx'
-import Home from './pages/Home/Home.jsx'
-import Events_List from './pages/Events_List/Events_List.jsx'
 
-const router = createBrowserRouter([{
-  path:'/', element:<Layout />,
+import Login from './pages/Login/Login.jsx'
+
+import Home from './pages/Home/Home.jsx'
+import EventsList from './pages/EventsList/EventsList.jsx'
+import App from './App.jsx'
+import SignUp from './pages/SignUP/SignUP.jsx'
+
+
+const router = createBrowserRouter([
+  {
+  path:'/', 
+  element:<App data-bs-theme="dark"/>,
   children: [
-    { path:'', 
+    { path:'/', 
       element: <Home /> },
     {
       path:'login', 
-      element:(
-        <AuthLayout authentication={false}>
-          <Login />
+      element:
+      (<AuthLayout authentication={false}>
+        <Login />
         </AuthLayout>)
     },
     {
       path:'events',
        element:
-        (<AuthLayout authentication={false}>
-          <Events_List />
+        (<AuthLayout authentication>
+          <EventsList />
         </AuthLayout>)
     },
     {
-      path:'register', element: (
-        <AuthLayout>
-          <Register />
+      path:'SignUP', 
+      element:
+      (<AuthLayout authentication={false}>
+          <SignUp/>
         </AuthLayout>)
-    }
+    },
+   
   ]
-}])
+}
+
+])
 
     
 
