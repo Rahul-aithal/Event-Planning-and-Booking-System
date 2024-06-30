@@ -12,10 +12,11 @@ useEffect(()=>{
     }else if(!authentication&&authentication!==authstatus){
         navigate('/')
     }
+    setLoader(false)
 },[navigate,authentication,authstatus])
 
     return (
-        loader? null:<>{children}</>
+        loader? <><p>I am not able to verify</p></>:<>{children}</>
     )
 }
 
