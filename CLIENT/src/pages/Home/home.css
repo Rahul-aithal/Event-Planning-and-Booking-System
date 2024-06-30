@@ -5,16 +5,16 @@
 
 /* Track */
 .innerScrollBar::-webkit-scrollbar-track {
-    background-color: #FFFFFF; /* White background */
+    background-color:transparent; /* Light gray background */
 }
 
 /* Thumb */
 .innerScrollBar::-webkit-scrollbar-thumb {
-    background-color: #4CAF50; /* Green color for the thumb */
+    background-color: #97a1973b; /* Green color for the thumb */
     border-radius: 6px; /* Rounded corners */
 }
 
 /* Thumb on hover */
 .innerScrollBar::-webkit-scrollbar-thumb:hover {
-    background-color: #2196F3; /* Blue color for the thumb on hover */
+    background-color: #848484; /* Blue color for the thumb on hover */
 }
