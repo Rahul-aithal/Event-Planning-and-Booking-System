@@ -75,12 +75,14 @@ export const LogOut = async (req, res, next) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        path:"/",
+        sameSite: 'None',
     }
     res.status(200).
         clearCookie("accessToken", options).
         clearCookie("refreshToken", options).
-        json({ message: "Success in LogOut", "USER": await User.findById(userId) })
+        json({ success:true, "USER": await User.findById(userId) })
 
 
 }
@@ -109,13 +111,15 @@ export const refreshAccessToken = async (req, res, next) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            secure: true,
+            path:"/",
+            sameSite: 'None',
         };
         const { accessToken, newRefreshToken } = await generateAccessTokenAndRefreshToken(user._id);
         res.status(200).
             cookie("acessToken", accessToken,options).
             cookie("refreshToken", newRefreshToken,options).
-            json({ message: "Sucess in Accessing new Tokenes", "AccessToken": accessToken })
+            json({ message: "Sucess in Accessing new Tokenes", success:true, "AccessToken": accessToken })
 
     } catch (error) {
         return handleResponse(res,500,_,error,next);
