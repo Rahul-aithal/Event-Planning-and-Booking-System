@@ -10,7 +10,7 @@
 
 /* Thumb */
 .innerScrollBar::-webkit-scrollbar-thumb {
-    background-color: #97a1973b; /* Green color for the thumb */
+    background-color: #97a1973b; 
     border-radius: 6px; /* Rounded corners */
 }
 

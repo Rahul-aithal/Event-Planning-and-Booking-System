@@ -1,14 +1,9 @@
-.max-w-7xl {
-    max-width: 1280px;
-    margin: 0 auto; /* Center align */
-  }
-  /* container.css */
-#Container {
-  width: 100%;
-  height: 100vh;
-  max-width: 100%; /* Ensure it doesn't limit the width */
-  /* Optional: Adjust padding as needed */
-  margin: 0  ; /* Center the container */
+/* container.css */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
@@ -17,3 +12,22 @@ body {
   box-sizing: border-box;
 }
 
+.footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+/* container.css */
+#Container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.innerScrollBar {
+  overflow-y: auto;
+}
