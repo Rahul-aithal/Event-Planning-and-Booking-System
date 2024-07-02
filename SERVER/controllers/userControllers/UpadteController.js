@@ -5,13 +5,19 @@ import { handleResponse } from "../../utils/HandleResponse.js";
 //@desc Update Password
 //@route PUT/api/user/password/
 export const UpdatePassword = async (req, res, next) => {
-    const {  password, oldpassword } = req.body;
+    const {  email,password, oldpassword } = req.body;
     const user =req.user;
     if (!user) {
-        return handleResponse(res, 404, _, new Error("User not found"), next);
+        return handleResponse(res, 404, null, new Error("User not found"), next);
 
     }
+    if (email&&!password&&!oldpassword){
+        return handleResponse(res,402,null,new Error("All Fields are requried"));
+    }
 
+    if(user.email===email){
+        return handleResponse(res,404,null,new Error("Email is not verified"))
+    }
     const userPassword = user.password;
     try {
         if (comparePassword(oldpassword, userPassword)) {
@@ -26,14 +32,14 @@ export const UpdatePassword = async (req, res, next) => {
                 runValidators: true
             })
 
-            handleResponse(res, 200, UpdateUser, _, next);
+            handleResponse(res, 200, UpdateUser, null, next);
         }
         else {
-            return handleResponse(res, 401, _, new Error("Invaild old password"), next);
+            return handleResponse(res, 401, null, new Error("Invaild old password"), next);
         }
     }
     catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500, null, error, next);
 
     }
 
@@ -46,13 +52,14 @@ export const UpdateName = async (req, res, next) => {
 
     try {
 
-        const { username, password } = req.body
+        const { username,newUsername ,password } = req.body
         const user =req.user
         if (!user) {
-            return handleResponse(res, 404, _, new Error("User not found"), next);
+            return handleResponse(res, 404, null, new Error("User not found"), next);
 
         }
-        if(username!==user.username) return handleResponse(res, 404, _, new Error("Invalid username"), next);
+        if(username!==user.username) return handleResponse(res, 404, null, new Error("Invalid username"), next);
+        if(!newUsername&&!username&&!password) return handleResponse(res, 402, null, new Error("All Fileds are required"), next);
         const userPassword = user.password;
 
 
@@ -61,26 +68,26 @@ export const UpdateName = async (req, res, next) => {
             const UpdateUser = await User.findByIdAndUpdate(username,
                 {
                     updatedAt: new Date,
-                    username: username,
+                    username: newUsername,
                 }, {
                 new: true,
                 runValidators: true
             })
 
             if (!UpdateUser) {
-                return handleResponse(res, 404, _, new Error("User not found"), next);
+                return handleResponse(res, 404, null, new Error("User not found"), next);
             }
         }
         else {
-            return handleResponse(res, 401, _, new Error("Invalid password"), next);
+            return handleResponse(res, 401, null, new Error("Invalid password"), next);
         }
 
-        return handleResponse(res, 200, UpdateUser, _, next);
+        return handleResponse(res, 200, UpdateUser, null, next);
 
 
     }
     catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500, null, error, next);
     }
 
 }
@@ -92,11 +99,11 @@ export const UpdateEmail = async (req, res, next) => {
 
 
     try {
-        const { email, password } = req.body;
+        const { email,newEmail ,password } = req.body;
         const user =req.user;
-        if(email!==user.email) return handleResponse(res, 404, _, new Error("Invalid email"), next);
+        if(email!==user.email) return handleResponse(res, 404, null, new Error("Invalid email"), next);
         if (!user) {
-            return handleResponse(res, 404, _, new Error("User not found"), next);
+            return handleResponse(res, 404, null, new Error("User not found"), next);
 
         }
         const userPassword = user.password;
@@ -108,25 +115,25 @@ export const UpdateEmail = async (req, res, next) => {
                 {
                     updatedAt: new Date,
 
-                    email: email
+                    email: newEmail
                 }, {
                 new: true,
                 runValidators: true
             })
 
             if (!UpdateUser) {
-                return handleResponse(res, 404, _, new Error("User not found"), next);
+                return handleResponse(res, 404, null, new Error("User not found"), next);
             }
         }
         else {
-            return handleResponse(res, 401, _, new Error("Invalid password"), next);
+            return handleResponse(res, 401, null, new Error("Invalid password"), next);
         }
 
-        return handleResponse(res, 200, UpdateUser, _, next);
+        return handleResponse(res, 200, UpdateUser, null, next);
 
     }
     catch (error) {
-        return handleResponse(res, 500, _, error, next);
+        return handleResponse(res, 500, null, error, next);
     }
 
 }
