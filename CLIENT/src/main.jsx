@@ -12,7 +12,9 @@ import Home from './pages/Home/Home.jsx'
 import EventsList from './pages/EventsList/EventsList.jsx'
 import App from './App.jsx'
 import SignUp from './pages/SignUP/SignUP.jsx'
-
+import AddEvent from './components/AddEvent.jsx'
+import EditEvent from './components/UpdateEvent.jsx'
+import DeleteEvent from './components/DeleteEvent.jsx'
 
 const router = createBrowserRouter([
   {
@@ -35,14 +37,35 @@ const router = createBrowserRouter([
           <EventsList />
         </AuthLayout>)
     },
+    
     {
-      path:'SignUP', 
+      path:'create-event', 
+      element:
+      (<AuthLayout authentication>
+          <AddEvent/>
+        </AuthLayout>)
+    },
+    {
+      path:'delete-event', 
+      element:
+      (<AuthLayout authentication>
+          <DeleteEvent/>
+        </AuthLayout>)
+    },
+    {
+      path:'edit-event', 
+      element:
+      (<AuthLayout authentication>
+          <EditEvent/>
+        </AuthLayout>)
+    },
+    {
+      path:'SingUp', 
       element:
       (<AuthLayout authentication={false}>
           <SignUp/>
         </AuthLayout>)
     },
-   
   ]
 }
 
