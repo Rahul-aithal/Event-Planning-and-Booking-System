@@ -17,9 +17,9 @@ export const verifyToken = async (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
 
 
-        const user = await User.findById(decodedToken.id).select("-password -refreshToken")
+        const user = await User.findById(decodedToken.id).select("-createdAt -updatedAt -refreshToken")
 
-
+console.log(user);
 
 
         if (!user) {
