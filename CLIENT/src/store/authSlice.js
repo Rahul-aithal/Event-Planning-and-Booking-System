@@ -13,15 +13,15 @@ export const authSlice = createSlice({
         login: (state, action) => {
             state.status = true;
             state.userData = action.payload.userData;
-            localStorage.setItem("authState",JSON.stringify(state));
+            sessionStorage.setItem("authState",JSON.stringify(state));
         },
         logout: (state) => {
             state.status = false;
             state.userData = null;
-             localStorage.removeItem("authState");
+             sessionStorage.removeItem("authState");
         },
         initializeStateFromStorage :(state)=>{
-            const storedState = localStorage.getItem("authState");
+            const storedState = sessionStorage.getItem("authState");
             if(storedState){
                 const parsedSate= JSON.parse(storedState);
                 state.status=parsedSate.status;
