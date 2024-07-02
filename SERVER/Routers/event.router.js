@@ -17,7 +17,7 @@ router.post("/add-event",verifyToken,createEvent);
 router.delete("/delete-event",verifyToken,deleteEvent);
 
 //Upadte event Detials
-router.put("/upadte-deatils",verifyToken,updateDetails);
+router.put("/update-deatils",verifyToken,updateDetails);
 
 
 export default router;
