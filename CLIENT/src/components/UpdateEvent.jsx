@@ -6,7 +6,6 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useSelector } from 'react-redux';
-import './ReactDatePicker.css';
 
 const EditEvent = () => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
