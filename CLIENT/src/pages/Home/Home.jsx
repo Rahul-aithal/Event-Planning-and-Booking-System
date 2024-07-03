@@ -40,7 +40,10 @@ function Home() {
                       *Enter valid number of seats
                     </p>
                   )}
-                  <button onClick={() => bookEventNow(event)} className="btn btn-danger mt-2">
+                  <button onClick={() => setBookNow(false)} className="btn btn-danger bg-danger-subtle mt-2 mx-5">
+                    Cancel Booking
+                  </button>
+                  <button onClick={() => bookEventNow(event)} className="btn btn-success mt-2">
                     Confirm Booking
                   </button>
                 </div>
