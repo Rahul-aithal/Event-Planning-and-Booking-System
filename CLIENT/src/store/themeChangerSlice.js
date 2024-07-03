@@ -16,7 +16,7 @@ const themeSlice = createSlice({
       sessionStorage.setItem("Theme",state.theme);
     },
     sessionStorageThemeChanger:(state)=>{
-      state.theme=  sessionStorage.getItem("Theme");
+      state.theme=  sessionStorage.getItem("Theme")||"light";
       state.dark =(state.theme === 'light' ? false : true);
     }
   },
