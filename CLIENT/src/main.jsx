@@ -15,6 +15,11 @@ import SignUp from './pages/SignUP/SignUP.jsx'
 import AddEvent from './components/AddEvent.jsx'
 import EditEvent from './components/UpdateEvent.jsx'
 import DeleteEvent from './components/DeleteEvent.jsx'
+import DeleteUser from './components/DeleteUser.jsx'
+import EditEmail from './components/EditEmail.jsx'
+import EditPassword from './components/EditPassword.jsx'
+import EditUsername from './components/EditUsername.jsx'
+import Profile from './components/Profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +33,13 @@ const router = createBrowserRouter([
       element:
       (<AuthLayout authentication={false}>
         <Login />
+        </AuthLayout>)
+    },
+    {
+      path:'SingUp', 
+      element:
+      (<AuthLayout authentication={false}>
+          <SignUp/>
         </AuthLayout>)
     },
     {
@@ -60,12 +72,41 @@ const router = createBrowserRouter([
         </AuthLayout>)
     },
     {
-      path:'SingUp', 
+      path:'edit-email', 
       element:
-      (<AuthLayout authentication={false}>
-          <SignUp/>
+      (<AuthLayout authentication>
+         <EditEmail />
         </AuthLayout>)
     },
+    {
+      path:'edit-username', 
+      element:
+      (<AuthLayout authentication>
+         <EditUsername/>
+        </AuthLayout>)
+    },
+    {
+      path:'edit-password', 
+      element:
+      (<AuthLayout authentication>
+         <EditPassword/>
+        </AuthLayout>)
+    },
+    {
+      path:'delete-profile', 
+      element:
+      (<AuthLayout authentication>
+          <DeleteUser />
+        </AuthLayout>)
+    },
+    {
+      path:'profile', 
+      element:
+      (<AuthLayout authentication>
+          <Profile />
+        </AuthLayout>)
+    },
+    
   ]
 }
 
