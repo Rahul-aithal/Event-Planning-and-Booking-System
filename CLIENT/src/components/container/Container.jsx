@@ -5,8 +5,6 @@ import { useSelector } from 'react-redux';
 export default function Container({ children, className }) {
   const theme = useSelector((state) => state.themeChanger.theme);
   const dark = useSelector((state) => state.themeChanger.dark);
-  console.log("dark",dark);
-  console.log("theme",theme);
   
   return (
     <div
